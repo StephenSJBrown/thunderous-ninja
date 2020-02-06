@@ -7,3 +7,4 @@ def index():
     return '<h1>Why so easy</h1>'
 
 if __name__ == '__main__':
+    app.run()
