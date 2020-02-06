@@ -13,13 +13,13 @@ class User(BaseModel):
 
 
 class Deposit(BaseModel):
-    user
-    centre
-    weight
+    user = pw.ForeignKeyField(User, backref='deposits', on_delete='CASCADE')
+    centre = pw.ForeignKeyField(User, backref='deposits', on_delete='CASCADE')
+    weight = pw.IntegerField()
 
 class Purchase(BaseModel):
-    user
-    coupon
-    status
+    user = pw.ForeignKeyField(User, backref='purchases', on_delete='CASCADE')
+    coupon = pw.ForeignKeyField(User, backref='purchases', on_delete='CASCADE')
+    status = pw.CharField(default='active')
 
 
