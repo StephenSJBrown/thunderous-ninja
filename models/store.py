@@ -1,5 +1,4 @@
 import peewee as pw
-import datetime
 from models.base_model import BaseModel
 
 class Store(BaseModel):
@@ -10,9 +9,9 @@ class Store(BaseModel):
     logo = pw.TextField(default="#")
 
 class Coupon(BaseModel):
-    store = pw.ForeignKeyField(Store, backref="")
-    name
-    category
-    value
-    description
-    cost
+    store = pw.ForeignKeyField(Store, backref="coupons")
+    name = pw.CharField()
+    category = pw.CharField()
+    value = pw.IntegerField()
+    description = pw.CharField
+    cost = pw.BigIntegerField()
