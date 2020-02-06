@@ -14,4 +14,4 @@ class Coupon(BaseModel):
     category = pw.CharField()
     value = pw.IntegerField()
     description = pw.CharField
-    cost = pw.BigIntegerField()
+    cost = pw.BigIntegerField()s
