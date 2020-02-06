@@ -9,21 +9,26 @@ User:
     Email
     Name
     Points
+    profile_photo
 
 Store:
     ID
     Name
     Password
     Email
+    profile_photo
+    logo 
 
 Coupon:
     ID
     Name
+    Category
     Expiry Date
     Value
     Description
     Cost
-    
+    Store
+
 Centre:
     ID
     Name
@@ -39,3 +44,4 @@ Purchase:
     ID
     |FK| User
     |FK| Coupon
+    Status
