@@ -2,6 +2,8 @@ import peewee as pw
 import re
 import datetime
 from models.base_model import BaseModel
+from models.store import Coupon
+from models.centre import Centre
 from werkzeug import generate_password_hash
 from flask_login import UserMixin
 
@@ -52,12 +54,13 @@ class User(UserMixin ,BaseModel):
 
 class Deposit(BaseModel):
     user = pw.ForeignKeyField(User, backref='deposits', on_delete='CASCADE')
-    centre = pw.ForeignKeyField(User, backref='deposits', on_delete='CASCADE')
+    centre = pw.ForeignKeyField(Centre, backref='deposits', on_delete='CASCADE')
     weight = pw.IntegerField()
+    points = pw.IntegerField()
 
 class Purchase(BaseModel):
     user = pw.ForeignKeyField(User, backref='purchases', on_delete='CASCADE')
-    coupon = pw.ForeignKeyField(User, backref='purchases', on_delete='CASCADE')
+    coupon = pw.ForeignKeyField(Coupon, backref='purchases', on_delete='CASCADE')
     status = pw.CharField(default='active')
 
 
