@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, flash
 from models.user import User
+from flask_login import current_user
 
 users_blueprint = Blueprint('users',
                             __name__,
@@ -31,3 +32,17 @@ def create():
         flash('Password confirmation does not match.','alert alert-danger')
         return render_template('users/new.html')
     
+@users_blueprint.route('/<username>', methods=['GET'])
+def show(username):
+    if current_user.is_authenticated:
+        user = User.get_or_none(User.username == username)
+        if user:
+            return render_template('users/show.html',user=user)
+        else:
+            return render_template('/')
+    else:
+        flash('Login required.','alert alert-danger')
+        return render_template('sessions/new.html')
+
+
+
