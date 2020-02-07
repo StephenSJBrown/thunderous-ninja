@@ -3,9 +3,10 @@ import re
 import datetime
 from models.base_model import BaseModel
 from werkzeug import generate_password_hash
+from flask_login import UserMixin
 
 
-class User(BaseModel):
+class User(UserMixin ,BaseModel):
     username = pw.CharField(unique=True)
     email = pw.CharField(unique=True)
     password = pw.CharField()
