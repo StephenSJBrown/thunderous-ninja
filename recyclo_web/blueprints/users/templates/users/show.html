@@ -5,7 +5,10 @@ Profile
 {% endblock %}
 
 {% block content %}
-<input type="button" href=# value="Edit profile">
+<img src="#" alt="#">
+<form action="{{ url_for('users.edit',id=current_user.id) }}">
+    <button>edit profile</button>
+</form>
 <h1>{{ user.username }}</h1>
 <h1>{{ user.points }}</h1>
 <h1>{{ user.contact }}</h1>
