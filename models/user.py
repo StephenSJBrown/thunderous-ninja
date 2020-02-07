@@ -5,9 +5,10 @@ from models.base_model import BaseModel
 from models.store import Coupon
 from models.centre import Centre
 from werkzeug import generate_password_hash
+from flask_login import UserMixin
 
 
-class User(BaseModel):
+class User(UserMixin ,BaseModel):
     username = pw.CharField(unique=True)
     email = pw.CharField(unique=True)
     password = pw.CharField()

@@ -1,0 +1,23 @@
+{% extends '_layout.html' %}
+
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block content %}
+<form action={{ url_for('users.update',id=current_user.id) }} method="POST">
+    <h1>Edit profile</h1>
+
+    <label for="username">Username</label>
+    <input type="text" name="username"><br/>
+    <label for="email">Email</label>
+    <input type="email" name="email"><br/>
+    <label for="password">Password</label>
+    <input type="password" name="password"><br/>
+    <label for="contact">Contact</label>
+    <input type="text" name="contact"><br/>
+
+    <button type="submit">Update</button>
+</form>
+{% endblock %}
+
