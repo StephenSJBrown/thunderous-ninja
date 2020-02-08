@@ -1,8 +1,8 @@
 from app import app
 from flask import render_template
-from recyclo_web.blueprints.users.views import users_blueprint
-from recyclo_web.blueprints.sessions.views import sessions_blueprint
-from recyclo_web.blueprints.deposits.views import deposits_blueprint
+from recyclo_api.blueprints.users.views import users_blueprint
+from recyclo_api.blueprints.sessions.views import sessions_blueprint
+from recyclo_api.blueprints.deposits.views import deposits_blueprint
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
 
