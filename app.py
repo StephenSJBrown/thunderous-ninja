@@ -6,7 +6,7 @@ from models.user import User
 from flask_login import LoginManager
 
 web_dir = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), 'recyclo_web')
+    os.path.abspath(__file__)), 'recyclo_api')
 
 app = Flask('RECYCLO', root_path=web_dir)
 
