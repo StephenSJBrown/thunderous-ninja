@@ -33,12 +33,12 @@ def login():
     else:
         return jsonify({'message' : 'incorrect username and password'})
 
-# can't solve AttributeError: 'CharField' object has no attribute 'count' // Werkzeug Debugger
 
-
-# @sessions_blueprint.route('/logout')
-# def logout():
-#     return ''
+@sessions_blueprint.route('/logout')
+def logout():
+    logout_user()
+    print('message : logout succesful')
+    return render_template('home.html')
 
 
 
