@@ -36,6 +36,7 @@ def view_profile(username):
             'username' : user.username,
             'email' : user.email,
             'contact' : user.contact,
+            'points' : user.points,
             'profile_image' : user.profile_image,
             'background_image' : user.background_image
 #image in static/images, but no idea how to link this.
@@ -111,7 +112,19 @@ def update_user(user_id):
         for error in user.errors:
             er_msg.append(error)
         return jsonify({'message' : er_msg})
-        
+
+@users_blueprint.route('/<user_id>/points',methods=['GET'])
+@login_required
+def view_points(user_id):
+    user = User.get_by_id(user_id)
+
+    if user:
+        if not current_user == user:
+            return jsonify({'message' : 'unauthorized access'})
+    
+        return jsonify({'points' : user.points})
+    else:
+        return make_response({'message' : 'user unavailable'})
 
 
 # @users_blueprint.route('/signup', methods=['GET'])
