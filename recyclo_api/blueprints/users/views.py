@@ -38,12 +38,15 @@ def get_one_user(username):
 @users_blueprint.route('/',methods=['POST'])
 def create_user():
     user = request.get_json()
+
+    if not user['password'] == user['cfm_pwd']:
+        return jsonify({'message' : 'password confirmation does not match'})
+
     new_user = User(
         username=user['username'], 
         password=user['password'],
         email=user['email'], 
         )
-
     if new_user.save():
         return jsonify({
             'message' : 'new user created!',
