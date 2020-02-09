@@ -23,13 +23,22 @@ def get_all_users():
 
 
 @users_blueprint.route('/<username>', methods=['GET'])
-def get_one_user(username):
+@login_required
+def view_profile(username):
     user = User.get_or_none(User.username == username)
+
     if user:
+        if not current_user == user:
+            return jsonify({'message' : 'unauthorized access'})
+
         return jsonify({
             'id' : user.id,
             'username' : user.username,
-            'email' : user.email
+            'email' : user.email,
+            'contact' : user.contact,
+            'profile_image' : user.profile_image,
+            'background_image' : user.background_image
+#image in static/images, but no idea how to link this.
             })
     else:
         return make_response({'message' : 'user not found'})
@@ -51,7 +60,7 @@ def create_user():
         return jsonify({
             'message' : 'new user created!',
             'status' : 'success',
-            'user' : {
+            'new_user' : {
                 'id' : new_user.id,
                 'username' : new_user.username,
                 'email' : new_user.email
@@ -64,9 +73,45 @@ def create_user():
         return jsonify({'message' : er_msg})
 
 
-@users_blueprint.route('/<user_id>',methods=['PUT'])
-def update_user():
-    return ''
+@users_blueprint.route('/<user_id>/update',methods=['PUT'])
+@login_required
+def update_user(user_id):
+    user = User.get_by_id(user_id)
+
+    if not current_user == user:
+        return jsonify({'message' : 'unauthorized access'})
+
+    update = request.get_json()
+
+    if update['username'] != '':
+        user.username = update['username']
+        user.password = None
+    if update['email'] != '':
+        user.email = update['email']
+        user.password = None
+    if update['contact'] != '':
+        user.contact = update['contact']
+        user.password = None
+    if update['password'] != '':
+        user.password = update['password']
+    if user.save():
+        return jsonify({
+            'message' : 'successfully updated profile',
+            'status' : 'success',
+            'updated_user' : {
+                'id' : user.id,
+                'username' : user.username,
+                'email' : user.email,
+                'contact' : user.contact,
+                'profile_image' : user.profile_image,
+                },
+            })
+    else:
+        er_msg = []
+        for error in user.errors:
+            er_msg.append(error)
+        return jsonify({'message' : er_msg})
+        
 
 
 
