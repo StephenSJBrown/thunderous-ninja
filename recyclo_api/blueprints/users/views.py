@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, url_for, flash, jsonify
+from flask import Blueprint, render_template, redirect, request, url_for, flash, jsonify, make_response
 from models.user import User
 from flask_login import current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,11 +9,31 @@ users_blueprint = Blueprint('users',
 
 @users_blueprint.route('/',methods=['GET'])
 def get_all_users():
-    return ''
+    users = User.select()
+    result = []
 
-@users_blueprint.route('/<user_id>', methods=['GET'])
-def get_one_user():
-    return ''
+    for user in users:
+        user_data = {
+            'id' : user.id,
+            'username' : user.username,
+            'email' : user.email
+        }
+        result.append(user_data)
+    return jsonify({'users' : result})
+
+
+@users_blueprint.route('/<username>', methods=['GET'])
+def get_one_user(username):
+    user = User.get_or_none(User.username == username)
+    if user:
+        return jsonify({
+            'id' : user.id,
+            'username' : user.username,
+            'email' : user.email
+            })
+    else:
+        return make_response({'message' : 'user not found'})
+
 
 @users_blueprint.route('/',methods=['POST'])
 def create_user():
