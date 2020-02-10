@@ -1,8 +1,8 @@
 from app import app
 from flask import render_template
-from recyclo_web.blueprints.users.views import users_blueprint
-from recyclo_web.blueprints.deposits.views import deposits_blueprint
-from recyclo_web.blueprints.purchases.views import purchases_blueprint
+from recyclo_api.blueprints.users.views import users_blueprint
+from recyclo_api.blueprints.sessions.views import sessions_blueprint
+from recyclo_api.blueprints.deposits.views import deposits_blueprint
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
 
@@ -10,8 +10,10 @@ assets = Environment(app)
 assets.register(bundles)
 
 app.register_blueprint(users_blueprint, url_prefix="/users")
+app.register_blueprint(sessions_blueprint, url_prefix="/sessions")
 app.register_blueprint(deposits_blueprint, url_prefix="/deposits")
 app.register_blueprint(purchases_blueprint, url_prefix="/purchases")
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
