@@ -11,6 +11,7 @@ sessions_blueprint = Blueprint('sessions',
 @sessions_blueprint.route('/login', methods=['POST'])
 def login():
     login = request.get_json()
+    print(login)
     user = User.get_or_none(User.username == login['username'])
     if user != None:
         result = check_password_hash(user.password, login['password'])

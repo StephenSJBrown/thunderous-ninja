@@ -47,7 +47,7 @@ def view_profile(username):
 @users_blueprint.route('/',methods=['POST'])
 def create_user():
     user = request.get_json()
-
+    print(user['password'])
     if not user['password'] == user['cfm_pwd']:
         return jsonify({'message' : 'password confirmation does not match'})
 
@@ -65,12 +65,12 @@ def create_user():
                 'username' : new_user.username,
                 'email' : new_user.email
                 },
-            })
+            }), 200
     else:
         er_msg = []
         for error in new_user.errors:
             er_msg.append(error)
-        return jsonify({'message' : er_msg})
+        return jsonify({'message' : er_msg}), 400
 
 
 @users_blueprint.route('/<user_id>/update',methods=['PUT'])
@@ -112,10 +112,6 @@ def update_user(user_id):
             er_msg.append(error)
         return jsonify({'message' : er_msg})
         
-
-
-
-
 
 
 # @users_blueprint.route('/signup', methods=['GET'])

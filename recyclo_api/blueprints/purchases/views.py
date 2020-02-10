@@ -5,11 +5,11 @@ purchases_blueprint = Blueprint('purchases',
                             __name__,
                             template_folder='templates')
 
-@users_blueprint.route('/signup', methods=['GET'])
+@purchases_blueprint.route('/signup', methods=['GET'])
 def new():
     return render_template('users/new.html')
 
-@users_blueprint.route('/', methods=['POST'])
+@purchases_blueprint.route('/', methods=['POST'])
 def create():
     username = request.form.get('username')
     email = request.form.get('email')
