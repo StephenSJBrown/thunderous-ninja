@@ -4,6 +4,9 @@ from recyclo_api.blueprints.users.views import users_blueprint
 from recyclo_api.blueprints.sessions.views import sessions_blueprint
 from recyclo_api.blueprints.deposits.views import deposits_blueprint
 from recyclo_api.blueprints.purchases.views import purchases_blueprint
+from recyclo_api.blueprints.stores.views import stores_blueprint
+from recyclo_api.blueprints.coupons.views import coupons_blueprint
+
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
 from flask_cors import CORS
@@ -17,6 +20,8 @@ app.register_blueprint(users_blueprint, url_prefix="/api/users")
 app.register_blueprint(sessions_blueprint, url_prefix="/api")
 app.register_blueprint(deposits_blueprint, url_prefix="/api/deposits")
 app.register_blueprint(purchases_blueprint, url_prefix="/api/purchases")
+app.register_blueprint(stores_blueprint, url_prefix="/api/stores")
+app.register_blueprint(coupons_blueprint, url_prefix="/api/coupons")
 
 
 @app.errorhandler(500)
