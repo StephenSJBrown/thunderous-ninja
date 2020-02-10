@@ -11,6 +11,7 @@ deposits_blueprint = Blueprint('deposits',
 @deposits_blueprint.route('/create', methods=['POST'])
 def create():
     centre = request.form.get('centre')
+    print(centre) # None
     centre = Centre.get_by_id(centre)
     user = request.form.get('user')
     user = User.get_by_id(user)

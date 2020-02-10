@@ -7,11 +7,12 @@ class Store(BaseModel):
     email = pw.CharField(unique=True)
     profile_image = pw.TextField(default="#")
     logo = pw.TextField(default="#")
+    category = pw.CharField()
 
 class Coupon(BaseModel):
     store = pw.ForeignKeyField(Store, backref="coupons")
     name = pw.CharField()
-    category = pw.CharField()
     value = pw.IntegerField()
     description = pw.CharField()
     cost = pw.BigIntegerField()
+    expiration = pw.DateField()

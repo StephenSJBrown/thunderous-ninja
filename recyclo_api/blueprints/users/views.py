@@ -8,7 +8,7 @@ users_blueprint = Blueprint('users',
                             template_folder='templates')
 
 @users_blueprint.route('/',methods=['GET'])
-def get_all_users():
+def index():
     users = User.select()
     result = []
 
@@ -24,7 +24,7 @@ def get_all_users():
 
 @users_blueprint.route('/<username>', methods=['GET'])
 @login_required
-def view_profile(username):
+def show(username):
     user = User.get_or_none(User.username == username)
 
     if user:
@@ -36,6 +36,7 @@ def view_profile(username):
             'username' : user.username,
             'email' : user.email,
             'contact' : user.contact,
+            'points' : user.points,
             'profile_image' : user.profile_image,
             'background_image' : user.background_image
 #image in static/images, but no idea how to link this.
@@ -45,9 +46,8 @@ def view_profile(username):
 
 
 @users_blueprint.route('/',methods=['POST'])
-def create_user():
+def create():
     user = request.get_json()
-    print(user['password'])
     if not user['password'] == user['cfm_pwd']:
         return jsonify({'message' : 'password confirmation does not match'})
 
@@ -73,9 +73,9 @@ def create_user():
         return jsonify({'message' : er_msg}), 400
 
 
-@users_blueprint.route('/<user_id>/update',methods=['PUT'])
+@users_blueprint.route('/<user_id>',methods=['PUT'])
 @login_required
-def update_user(user_id):
+def update(user_id):
     user = User.get_by_id(user_id)
 
     if not current_user == user:
@@ -111,7 +111,19 @@ def update_user(user_id):
         for error in user.errors:
             er_msg.append(error)
         return jsonify({'message' : er_msg})
-        
+
+# @users_blueprint.route('/<user_id>/points',methods=['GET'])
+# @login_required
+# def view_points(user_id):
+#     user = User.get_by_id(user_id)
+
+#     if user:
+#         if not current_user == user:
+#             return jsonify({'message' : 'unauthorized access'})
+    
+#         return jsonify({'points' : user.points})
+#     else:
+#         return make_response({'message' : 'user unavailable'})
 
 
 # @users_blueprint.route('/signup', methods=['GET'])
