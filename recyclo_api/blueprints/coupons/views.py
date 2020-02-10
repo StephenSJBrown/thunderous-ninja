@@ -24,5 +24,21 @@ def index(store_id):
         result.append(coupon_data)
     return jsonify({'coupons' : result})
 
+@coupons_blueprint.route('/<coupon_id>',methods=['GET'])
+def show(coupon_id):
+    coupon = Coupon.get_by_id(coupon_id)
+
+    if coupon:
+        return jsonify({
+            'coupon-id' : coupon.id,
+            'coupon-store_id' : coupon.store_id,
+            'coupon-name' : coupon.name,
+            'coupon-deal' : coupon.value,
+            'coupon-description' : coupon.description,
+            'coupon-points' : coupon.cost,
+            'coupon-expiration' : coupon.expiration,
+        })
+    else:
+        return make_response({'message' : 'coupon not found.'})
 
 

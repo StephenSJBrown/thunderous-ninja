@@ -5,9 +5,6 @@ purchases_blueprint = Blueprint('purchases',
                             __name__,
                             template_folder='templates')
 
-@purchases_blueprint.route('/signup', methods=['GET'])
-def new():
-    return render_template('users/new.html')
 
 @purchases_blueprint.route('/', methods=['POST'])
 def create():
