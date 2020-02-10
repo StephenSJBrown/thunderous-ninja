@@ -11,7 +11,8 @@ class Store(BaseModel):
 class Coupon(BaseModel):
     store = pw.ForeignKeyField(Store, backref="coupons")
     name = pw.CharField()
-    category = pw.CharField()
+    category = pw.CharField(null=True)
     value = pw.IntegerField()
     description = pw.CharField()
     cost = pw.BigIntegerField()
+    expiration = pw.DateField()
