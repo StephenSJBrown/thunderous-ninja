@@ -2,7 +2,7 @@ import peewee as pw
 from models.base_model import BaseModel
 
 class Store(BaseModel):
-    name = pw.CharField()
+    name = pw.CharField(unique=True)
     password = pw.CharField()
     email = pw.CharField(unique=True)
     profile_image = pw.TextField(default="#")
