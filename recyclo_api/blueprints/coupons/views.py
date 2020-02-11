@@ -11,13 +11,13 @@ def show(coupon_id):
 
     if coupon:
         return jsonify({
-            'coupon-id' : coupon.id,
-            'coupon-store_id' : coupon.store_id,
-            'coupon-name' : coupon.name,
-            'coupon-deal' : coupon.value,
-            'coupon-description' : coupon.description,
-            'coupon-points' : coupon.cost,
-            'coupon-expiration' : coupon.expiration,
+            'id' : coupon.id,
+            'store_id' : coupon.store_id,
+            'name' : coupon.name,
+            'deal' : coupon.value,
+            'description' : coupon.description,
+            'points' : coupon.cost,
+            'expiration' : coupon.expiration,
         })
     else:
         return jsonify({'message' : 'coupon not found.'})
