@@ -1,4 +1,5 @@
 import os
+import click
 import config
 from flask import Flask
 from models.base_model import db
@@ -35,5 +36,9 @@ def _db_close(exc):
         print(db.close())
     return exc
 
+@click.command()
+def seed():
+    from seed import seed_users
+    seed_users()
 
-
+app.cli.add_command(seed)
