@@ -39,7 +39,6 @@ def show(store_name):
     store = Store.get_or_none(Store.name==store_name)
     coupons = Coupon.select().where(Coupon.store_id==store.id)
     
-    breakpoint()
     result = []
 
     if coupons:
