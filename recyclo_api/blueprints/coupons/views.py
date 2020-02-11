@@ -7,7 +7,7 @@ coupons_blueprint = Blueprint('coupons',
 
 @coupons_blueprint.route('/<coupon_id>',methods=['GET'])
 def show(coupon_id):
-    coupon = Coupon.get_or_none(Coupon.id == coupon_id)
+    coupon = Coupon.get_or_none(Coupon.id==coupon_id)
 
     if coupon:
         return jsonify({
