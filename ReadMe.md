@@ -1,3 +1,11 @@
+# thunderous ninja
+`To install seed file:`
+`pip install -r requirements.txt`
+`createdb <'your-db-name>`
+`python migrate.py`
+`flask seed`
+
+
 This is a great app.
 
 The Models are as follows:
