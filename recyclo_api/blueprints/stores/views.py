@@ -20,6 +20,7 @@ def index(category):
                 'store-category' : store.category,
                 'coupons' : [
                     {
+                        'coupon-id' : coupon.id,
                         'coupon-name' : coupon.name,
                         'coupon-deal' : coupon.value,
                         'coupon-points' : coupon.cost,

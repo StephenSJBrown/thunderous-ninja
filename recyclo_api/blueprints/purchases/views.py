@@ -1,30 +1,18 @@
-from flask import Blueprint, render_template, redirect, request, url_for, flash
-from models.user import User
+from flask import Blueprint, render_template, redirect, request, url_for, flash, jsonify
+from models.user import User, Coupon
+from flask_login import current_user
 
 purchases_blueprint = Blueprint('purchases',
                             __name__,
                             template_folder='templates')
 
 
-@purchases_blueprint.route('/', methods=['POST'])
-def create():
-    username = request.form.get('username')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    pwd_cfm = request.form.get('pwd_cfm')
+@purchases_blueprint.route('/<coupon_id>', methods=['GET'])
+def create(coupon_id):
+    coupon = Coupon.get_or_none(Coupon.id == coupon_id)
+    user = User.get_or_none(current_user.id == User.id)
+    if coupon and user:
+        new_purchase = Purchase(user_id=user.id, coupon_id=coupon.id)
+        new_purchase.save()
 
-    if password == pwd_cfm:
-        user = User(username=username, 
-                    email=email, 
-                    password=password)
-        if user.save():
-            flash(f'Welcome {user.username}, thanks for signing up!','alert alert-success')
-            return redirect(url_for('home'))
-        else:
-            for error in user.errors:
-                flash(error,'alert alert-danger')
-            return render_template('users/new.html')
-    else:
-        flash('Password confirmation does not match.','alert alert-danger')
-        return render_template('users/new.html')
-    
+
