@@ -13,18 +13,18 @@ def index(category):
     if stores:
         for store in stores:
             store_data = {
-                'store-id' : store.id,
-                'store-name' : store.name,
-                'store-email' : store.email,
-                'store-profile-image' : store.profile_image,
-                'store-logo' : store.logo,
-                'store-category' : store.category,
+                'id' : store.id,
+                'name' : store.name,
+                'email' : store.email,
+                'profile-image' : store.profile_image,
+                'logo' : store.logo,
+                'category' : store.category,
                 'coupons' : [
                     {
-                        'coupon-id' : coupon.id,
-                        'coupon-name' : coupon.name,
-                        'coupon-deal' : coupon.value,
-                        'coupon-points' : coupon.cost,
+                        'id' : coupon.id,
+                        'name' : coupon.name,
+                        'deal' : coupon.value,
+                        'points' : coupon.cost,
                     } for coupon in store.coupons
                 ]
             }
@@ -44,13 +44,13 @@ def show(store_name):
     if coupons:
         for coupon in coupons:
             coupon_data = {
-                'coupon-id' : coupon.id,
-                'coupon-store_id' : coupon.store_id,
-                'coupon-name' : coupon.name,
-                'coupon-deal' : coupon.value,
-                'coupon-description' : coupon.description,
-                'coupon-points' : coupon.cost,
-                'coupon-expiration' : coupon.expiration,
+                'id' : coupon.id,
+                'store_id' : coupon.store_id,
+                'name' : coupon.name,
+                'deal' : coupon.value,
+                'description' : coupon.description,
+                'points' : coupon.cost,
+                'expiration' : coupon.expiration,
                 #npm install momentjs/use moment().format(MM .....) at React, to pull specific date format.
             }
             result.append(coupon_data)
