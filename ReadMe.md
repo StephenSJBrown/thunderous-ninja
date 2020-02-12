@@ -11,11 +11,11 @@
 
 ## To add seed data to database:
 
-### if db already exists, first do this
+### If db already exists, first do this
 
 `dropdb <your-db-name>`
 
-### after
+### After
 
 `createdb <your-db-name>`
 `python migrate.py`
