@@ -17,9 +17,9 @@
 
 ### After
 
-`createdb <your-db-name>`
-`python migrate.py`
-`flask seed`
+Create the database `createdb <your-db-name>`
+Add the tables based on the models in the file `python migrate.py`
+Run the seed file to populate the tables `flask seed`
 
 ## Finally, to get the server up and running
 
