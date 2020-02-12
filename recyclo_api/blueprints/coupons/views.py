@@ -5,6 +5,7 @@ coupons_blueprint = Blueprint('coupons',
                             __name__,
                             template_folder='templates')
 
+
 @coupons_blueprint.route('/<coupon_id>',methods=['GET'])
 def show(coupon_id):
     coupon = Coupon.get_or_none(Coupon.id==coupon_id)

@@ -29,7 +29,6 @@ def index(category):
                 ]
             }
             result.append(store_data)
-            print(result)
         return jsonify({'stores' : result})
     else:
         return jsonify({'message' : 'category not found'})
