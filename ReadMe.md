@@ -1,55 +1,28 @@
 # thunderous ninja
-`To install seed file:`
-`pip install -r requirements.txt`
-`createdb <'your-db-name>`
-`python migrate.py`
-`flask seed`
+
+## intructions to set up server for the first time
+
+1. Navigate to the directory you want to create the repo in (without using mkdir to create a new folder)
+2. run `git clone <url to repo>`
+3. navigate into repo `cd thunderous-ninja`
+4. Create a new environment with Python3.7 using `conda create -n <environment name> python=3.7`
+5. pip install all requirements `pip install -r requirements.txt`
 
 
-This is a great app.
+## To add seed data to database:
 
-The Models are as follows:
+### If db already exists, first do this
 
-User:
-    ID
-    Username
-    Password
-    Email
-    Name
-    Points
-    profile_photo
+`dropdb <your-db-name>`
 
-Store:
-    ID
-    Name
-    Password
-    Email
-    profile_photo
-    logo 
+### After
 
-Coupon:
-    ID
-    Name
-    Category
-    Expiry Date
-    Value
-    Description
-    Cost
-    Store
+Create the database `createdb <your-db-name>`
 
-Centre:
-    ID
-    Name
-    Location
+Add the tables based on the models in the file `python migrate.py`
 
-Deposit:
-    ID
-    |FK| User
-    |FK| Centre
-    Weight
+Run the seed file to populate the tables `flask seed`
 
-Purchase:
-    ID
-    |FK| User
-    |FK| Coupon
-    Status
+## Finally, to get the server up and running
+
+`flask run`
