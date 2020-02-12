@@ -1,15 +1,17 @@
 from models.base_model import db
-from models.user import User, Purchase
+from models.user import User, Purchase, Deposit
 from models.store import Store, Coupon
+from models.centre import Centre
+
 
 user_data = [
-    {'username': 'calix','email':'calix@gmail.com','password':'Password123','contact':'123456'},
-    {'username': 'daniel','email':'daniel@gmail.com','password':'Password123','contact':'123456'},
-    {'username': 'hseng','email':'hseng@gmail.com','password':'Password123','contact':'123456'},
-    {'username': 'stephen','email':'stephen@gmail.com','password':'Password123','contact':'123456'},
-    {'username': 'dixon','email':'dixon@gmail.com','password':'Password123','contact':'123456'},
-    {'username': 'ethan','email':'ethan@gmail.com','password':'Password123','contact':'123456'},
-    {'username': 'liren','email':'liren@gmail.com','password':'Password123','contact':'123456'},
+    {'username': 'calix','email':'calix@gmail.com','password':'Password123','contact':'123456','points':600},
+    {'username': 'daniel','email':'daniel@gmail.com','password':'Password123','contact':'123456','points':100},
+    {'username': 'hseng','email':'hseng@gmail.com','password':'Password123','contact':'123456','points':100000},
+    {'username': 'stephen','email':'stephen@gmail.com','password':'Password123','contact':'123456','points':37000},
+    {'username': 'dixon','email':'dixon@gmail.com','password':'Password123','contact':'123456','points':0},
+    {'username': 'ethan','email':'ethan@gmail.com','password':'Password123','contact':'123456','points':0},
+    {'username': 'liren','email':'liren@gmail.com','password':'Password123','contact':'123456','points':0}
 ]
 
 store_data = [
@@ -22,7 +24,8 @@ store_data = [
     {'name':'malaysia-airline','password':'Password123','email':'malaysia-airline@gmail.com','category':'travel'},
     {'name':'trivago','password':'Password123','email':'trivago@gmail.com','category':'hotels'},
     {'name':'great-eastern','password':'Password123','email':'great-eastern@gmail.com','category':'insurance'},
-    {'name':'aia','password':'Password123','email':'aia@gmail.com','category':'insurance'}
+    {'name':'aia','password':'Password123','email':'aia@gmail.com','category':'insurance'},
+    {'name':'genting','password':'Password123','email':'genting@gmail.com','category':'experience'}
 ]
 
 coupon_data = [
@@ -46,29 +49,48 @@ purchase_data = [
     {"user_id":5,"coupon_id":2,"status":"expired"}
 ]
 
+centre_data = [
+    {"name":"IPC recycling centre","location":"Mutiara Damansara,50000 KL"},
+    {"name":"Bandar utama recycling centre","location":"Bandar Utama,45000 KL"},
+    {"name":"Kelana Jaya recycling centre","location":"Kelana Jaya,45000 KL"}
+]
+
+deposit_data = [
+    {"user_id":1,"centre_id":1,"weight":2,"points":200},
+    {"user_id":1,"centre_id":1,"weight":4,"points":400},
+    {"user_id":4,"centre_id":2,"weight":60,"points":6000},
+    {"user_id":4,"centre_id":3,"weight":40,"points":4000},
+    {"user_id":4,"centre_id":2,"weight":80,"points":8000},
+    {"user_id":4,"centre_id":3,"weight":50,"points":5000},
+    {"user_id":4,"centre_id":3,"weight":50,"points":5000},
+    {"user_id":4,"centre_id":2,"weight":90,"points":9000},
+    {"user_id":2,"centre_id":3,"weight":1,"points":100},
+    {"user_id":3,"centre_id":1,"weight":1000,"points":100000},
+]
+
 def seed_users():
-    try:
-        for row in db.batch_commit(user_data, 100):
-            User.create(**row)
-    except:
-        print('user problem')
+    for row in db.batch_commit(user_data, 100):
+        User.create(**row)
 
-    try:
-        for row in db.batch_commit(store_data, 100):
-            Store.create(**row)
-    except:
-        print('store problem')
+    for row in db.batch_commit(store_data, 100):
+        Store.create(**row)
     
-    try:
-        for row in db.batch_commit(coupon_data, 100):
-            Coupon.create(**row)
-    except:
-        print('coupon problem')
+    for row in db.batch_commit(coupon_data, 100):
+        Coupon.create(**row)
 
-    try:
-        for row in db.batch_commit(purchase_data, 100):
-            Purchase.create(**row)
-    except:
-        print('purchase problem')
+    for row in db.batch_commit(purchase_data, 100):
+        Purchase.create(**row)
+
+    for row in db.batch_commit(centre_data, 100):
+        Centre.create(**row)
+
+    for row in db.batch_commit(deposit_data, 100):
+        Deposit.create(**row)
+
+    # try:
+    #     for row in db.batch_commit(deposit_data, 100):
+    #         Centre.create(**row)
+    # except:
+    #     print('centre problem')
 
     print('seed complete')

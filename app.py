@@ -10,6 +10,7 @@ web_dir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'recyclo_api')
 
 app = Flask('RECYCLO', root_path=web_dir)
+app.config['JSON_SORT_KEYS'] = False
 
 if os.getenv('FLASK_ENV') == 'production':
     app.config.from_object("config.ProductionConfig")

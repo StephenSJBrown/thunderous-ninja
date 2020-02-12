@@ -13,7 +13,7 @@ def index(store_id):
     if coupons:
         for coupon in coupons:
             coupon_data = {
-                'coupon-id' : coupon.id,
+                'coupon_id' : coupon.id,
                 'coupon-store_id' : coupon.store_id,
                 'coupon-name' : coupon.name,
                 'coupon-deal' : coupon.value,
