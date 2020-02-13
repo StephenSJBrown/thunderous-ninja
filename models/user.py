@@ -63,6 +63,7 @@ class Purchase(BaseModel):
     user = pw.ForeignKeyField(User, backref='purchases', on_delete='CASCADE')
     coupon = pw.ForeignKeyField(Coupon, backref='purchases', on_delete='CASCADE')
     status = pw.CharField(default='active')
+    qr_string = pw.CharField(null=True)
 
 
 
