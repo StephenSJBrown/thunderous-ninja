@@ -11,14 +11,13 @@ purchases_blueprint = Blueprint('purchases',
 @purchases_blueprint.route('/', methods=['POST'])
 def create():
     buy = request.get_json()
-
     coupon = Coupon.get_or_none(Coupon.id == buy['coupon_id'])
-    if coupon:
-        user = User.get_or_none(User.id == buy['user_id'])
-        if user:
+    user = User.get_or_none(User.id == buy['user_id'])
+    if coupon and user:
+        if user.points < coupon.cost:
             new_purchase = Purchase(user_id=user.id, coupon_id=coupon.id)
             new_purchase.save()
-            # User.update(points=user.points - new_purchase.points).where(User.id == user.id).execute()
+            User.update(points=user.points - coupon.cost).where(User.id == user.id).execute()
             # add cost column to Purchase?
             return jsonify({
                 'message' : 'purchase success',
@@ -34,14 +33,14 @@ def create():
                 'coupon' : {
                     'id' : coupon.id,
                     'name' : coupon.name,
-                    'store' : store.name,
+                    'store' : coupon.store.name,
                     'value' : coupon.value
                 }
             }) 
         else:
-            return jsonify({'message' : 'user not found'})
+            return jsonify({'message' : 'user can\'t afford it.'})
     else:
-        return jsonify({'message' : 'coupon not found'})
+        return jsonify({'message' : 'user/coupon not found'})
 
 
 @purchases_blueprint.route('/show/<user_id>', methods=['GET'])
