@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, redirect, request, url_for, flash,
 from models.user import User, Purchase
 from models.store import Coupon
 from flask_login import current_user
+import random
+import string
 
 purchases_blueprint = Blueprint('purchases',
                             __name__,
@@ -13,9 +15,15 @@ def create(coupon_id):
     buy = request.get_json()
     coupon = Coupon.get_or_none(Coupon.id == coupon_id)
     user = User.get_or_none(User.id == buy['user_id'])
+
+    def randomStringDigits(stringLength=4):
+        lettersAndDigits = string.ascii_letters + string.digits
+        return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
+
     if coupon and user:
         if user.points > coupon.cost:
-            new_purchase = Purchase(user_id=user.id, coupon_id=coupon.id)
+            qrstring = randomStringDigits(4)+'-'+randomStringDigits(4)+'-'+randomStringDigits(4)+'-'+randomStringDigits(4)
+            new_purchase = Purchase(user_id=user.id, coupon_id=coupon.id, qr_string=qrstring)
             new_purchase.save()
             User.update(points=user.points - coupon.cost).where(User.id == user.id).execute()
             # add cost column to Purchase?
@@ -23,6 +31,7 @@ def create(coupon_id):
                 'message' : 'purchase success',
                 'date' : new_purchase.created_at,
                 'id' : new_purchase.id,
+                'qr_string' : new_purchase.qr_string,
                 'user' :{
                     'id' : user.id,
                     'username' : user.username,
@@ -36,11 +45,11 @@ def create(coupon_id):
                     'store' : coupon.store.name,
                     'value' : coupon.value
                 }
-            }) 
+            }), 200
         else:
-            return jsonify({'message' : 'user can\'t afford it.'})
+            return jsonify({'message' : 'user can\'t afford it.'}), 418
     else:
-        return jsonify({'message' : 'user/coupon not found'})
+        return jsonify({'message' : 'user/coupon not found'}), 418
 
 
 @purchases_blueprint.route('/index/<user_id>', methods=['GET'])
@@ -83,7 +92,7 @@ def show(purchase_id):
             'status' : purchase.status
         })
     else:
-        return jsonify({'message' : 'no record for such purchase'})
+        return jsonify({'message' : 'no record for such purchase'}), 418
 
 
 
@@ -100,7 +109,7 @@ def update(purchase_id):
     # if status != 'redeemed':
     #     return jsonify({'message' : 'status must only be \'redeemed\''})
 
-    if purchase and get_user.id == user:
+    if purchase and get_user.id == purchase.user_id:
         if purchase.status == 'active':
             Purchase.update(status='redeemed').where(Purchase.id == purchase_id).execute()
             purchase = Purchase.get_or_none(Purchase.id == purchase_id)
@@ -109,6 +118,7 @@ def update(purchase_id):
                 'message' : 'coupon updated',
                 'id' : purchase.id,
                 'coupon_id' : purchase.coupon_id,
+                'qr_string' : purchase.qr_string,
                 'status' : purchase.status, 
                 'user' : {
                     'id' : get_user.id,
@@ -116,10 +126,10 @@ def update(purchase_id):
                     'email' : get_user.email,
                     'contact' : get_user.contact,
                 }
-            })
+            }), 200
         else:
-            return jsonify({'message' : 'this coupon is not active'})
+            return jsonify({'message' : 'this coupon is not active'}), 418
     else:
-        return jsonify({'message' : 'no record of such purchase'})
+        return jsonify({'message' : 'no record of such purchase'}), 418
 
 
