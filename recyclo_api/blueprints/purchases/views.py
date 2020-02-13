@@ -93,22 +93,23 @@ def update(purchase_id):
     purchase = Purchase.get_or_none(Purchase.id == purchase_id)
     get_status = request.get_json()
     user = get_status['user_id']
-    status = get_status['status']
+    # status = get_status['status']
     get_user = User.get_or_none(User.id == user)
 
     # if not redeem , return not active
-    if status != 'redeemed':
-        return jsonify({'message' : 'status must only be \'redeemed\''})
+    # if status != 'redeemed':
+    #     return jsonify({'message' : 'status must only be \'redeemed\''})
 
     if purchase and get_user.id == user:
         if purchase.status == 'active':
-            Purchase.update(status=status).where(Purchase.id == purchase_id).execute()
+            Purchase.update(status='redeemed').where(Purchase.id == purchase_id).execute()
+            purchase = Purchase.get_or_none(Purchase.id == purchase_id)
             
             return jsonify({
                 'message' : 'coupon updated',
                 'id' : purchase.id,
                 'coupon_id' : purchase.coupon_id,
-                'status' : status,
+                'status' : purchase.status, 
                 'user' : {
                     'id' : get_user.id,
                     'username' : get_user.username,
