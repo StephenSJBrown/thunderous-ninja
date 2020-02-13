@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, flash,
 from models.user import User, Deposit
 from models.centre import Centre
 from flask_login import login_manager
+from playhouse.shortcuts import model_to_dict
 
 deposits_blueprint = Blueprint('deposits',
                             __name__,
@@ -104,12 +105,13 @@ def show(deposit_id):
     deposit = Deposit.get_or_none(Deposit.id == deposit_id)
 
     if deposit:
+        # return jsonify(model_to_dict(deposit))
         return jsonify({
             'date' : deposit.created_at,
             'id' : deposit.id,
             'user_id' : deposit.user_id,
             'centre_id':deposit.centre_id,
-            'weight':deposit.weight,
+            'weight': deposit.weight,
             'points':deposit.points
         })
     else:

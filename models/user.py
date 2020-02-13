@@ -56,7 +56,7 @@ class User(UserMixin ,BaseModel):
 class Deposit(BaseModel):
     user = pw.ForeignKeyField(User, backref='deposits', on_delete='CASCADE')
     centre = pw.ForeignKeyField(Centre, backref='deposits', on_delete='CASCADE')
-    weight = pw.IntegerField(default=0.00)
+    weight = pw.FloatField(default=0.00)
     points = pw.IntegerField(default=0)
 
 class Purchase(BaseModel):

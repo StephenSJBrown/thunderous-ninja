@@ -42,10 +42,6 @@ def logout():
     return render_template('home.html')
 
 
-
-
-
-
 # @sessions_blueprint.route('/login', methods=['GET'])
 # def new():
 #     return render_template('sessions/new.html')
