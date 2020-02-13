@@ -11,7 +11,6 @@ deposits_blueprint = Blueprint('deposits',
 @deposits_blueprint.route('/create/<centre_id>', methods=['POST'])
 def create(centre_id):
     auth = request.get_json()
-
     centre = Centre.get_or_none(Centre.id == centre_id)
     if centre:
         user = User.get_or_none(User.id == auth['user_id'])
@@ -21,6 +20,7 @@ def create(centre_id):
                 centre_id=centre.id
             )
             record_user.save()
+        
             return jsonify({
                 'message' : 'entry created',
                 'date' : record_user.created_at,
@@ -40,10 +40,12 @@ def create(centre_id):
                     'location' : centre.location
                 }
                 })
+
         else:
             return jsonify({'message' : 'user not found'})
     else:
         return jsonify({'message' : 'centre not found'})
+
 
 #gets weight from rashberryPi and updates the latest entry of the centre.
 @deposits_blueprint.route('/update/<centre_id>', methods=['POST'])
@@ -78,8 +80,8 @@ def update(centre_id):
 
 
 #shows all deposits based on user
-@deposits_blueprint.route('/show/<user_id>', methods=['GET'])
-def show(user_id):
+@deposits_blueprint.route('/index/<user_id>', methods=['GET'])
+def index(user_id):
     user = User.get_or_none(User.id == user_id)
 
     if user:
@@ -95,3 +97,20 @@ def show(user_id):
 
     else:
         return jsonify([{'message' : 'user not found'}]), 418
+
+
+@deposits_blueprint.route('/<deposit_id>', methods=['GET'])
+def show(deposit_id):
+    deposit = Deposit.get_or_none(Deposit.id == deposit_id)
+
+    if deposit:
+        return jsonify({
+            'date' : deposit.created_at,
+            'id' : deposit.id,
+            'user_id' : deposit.user_id,
+            'centre_id':deposit.centre_id,
+            'weight':deposit.weight,
+            'points':deposit.points
+        })
+    else:
+        return jsonify({'message' : 'deposit unavailable'})
