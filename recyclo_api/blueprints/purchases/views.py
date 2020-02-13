@@ -104,6 +104,7 @@ def update(purchase_id):
     user = get_status['user_id']
     # status = get_status['status']
     get_user = User.get_or_none(User.id == user)
+    get_coupon = Coupon.get_or_none(Coupon.id == purchase.coupon_id)
 
     # if not redeem , return not active
     # if status != 'redeemed':
@@ -117,7 +118,6 @@ def update(purchase_id):
             return jsonify({
                 'message' : 'coupon updated',
                 'id' : purchase.id,
-                'coupon_id' : purchase.coupon_id,
                 'qr_string' : purchase.qr_string,
                 'status' : purchase.status, 
                 'user' : {
@@ -125,6 +125,11 @@ def update(purchase_id):
                     'username' : get_user.username,
                     'email' : get_user.email,
                     'contact' : get_user.contact,
+                },
+                'coupon' :{
+                    'id' : get_coupon.id,
+                    'name' : get_coupon.name,
+                    'description' : get_coupon.description
                 }
             }), 200
         else:
