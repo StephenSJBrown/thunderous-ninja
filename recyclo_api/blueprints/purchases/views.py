@@ -43,20 +43,44 @@ def create():
         return jsonify({'message' : 'user/coupon not found'})
 
 
-@purchases_blueprint.route('/show/<user_id>', methods=['GET'])
-def show(user_id):
+@purchases_blueprint.route('/index/<user_id>', methods=['GET'])
+def index(user_id):
     purchases = Purchase.get_or_none(Purchase.user_id == user_id)
+    print(purchases)
+    breakpoint()
 
     if purchases:
         return jsonify([{
             'id' : purchase.id,
-            'coupon_id' : purchase.coupon.id,
+            # 'coupon' : {
+            #     'id' : purchase.coupon.id,
+            #     'store_id' : purchase.coupon.store_id
+                # 'name' : purchase.coupon.name,
+                # 'deal' : purchase.coupon.value,
+                # 'description' : purchase.coupon.description,
+                # 'points' : purchase.coupon.cost,
+                # 'expiration' : purchase.coupon.expiration
+                # 'store' : {
+                #     'id' : purchase.coupon.store.id,
+                #     'name' : purchase.coupon.store.name,
+                #     'logo' : purchase.coupon.store.logo
+                # }
+            # },
             'status' : purchase.status
         } for purchase in purchases
     ]), 200
 
     else:
         return jsonify({'message' : 'user unavailable'}), 418
+
+
+# @purchases_blueprint.route('/show/<user_id>', methods=['GET'])
+# def show(user_id):
+
+
+
+
+
 
 # @purchases_blueprint.route('/')
 # def update():

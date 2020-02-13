@@ -38,6 +38,7 @@ coupon_data = [
     {'store_id':4,'name':'comfy clothes','value':25,'description':'very comfy clothes','cost':5000,'expiration':'1/1/2021'},
     {'store_id':4,'name':'comfy pants','value':35,'description':'very comfy pants','cost':10000,'expiration':'1/1/2021'},
     {'store_id':5,'name':'not so comfy pants','value':75,'description':'very not comfy pants','cost':5000,'expiration':'1/1/2021'}
+    
 ]
 
 purchase_data = [
