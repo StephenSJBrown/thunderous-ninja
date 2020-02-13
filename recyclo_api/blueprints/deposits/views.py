@@ -55,7 +55,7 @@ def update(centre_id):
     points = get_weight['weight'] * 100
     deposit = Deposit.select().order_by(Deposit.id.desc()).where(Deposit.centre_id == centre_id).get()
 
-    if deposit.weight == 0:
+    if deposit.weight == 0.00:
         Deposit.update(weight=weight,points=points).where(Deposit.id == deposit.id).execute()
         deposit = Deposit.get_by_id(deposit)
 
