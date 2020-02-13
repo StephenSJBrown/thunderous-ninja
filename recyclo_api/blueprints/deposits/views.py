@@ -20,7 +20,7 @@ def create(centre_id):
                 centre_id=centre.id
             )
             record_user.save()
-        
+            
             return jsonify({
                 'message' : 'entry created',
                 'date' : record_user.created_at,
@@ -89,17 +89,17 @@ def index(user_id):
         return jsonify([{
             'date':deposit.created_at,
             'id' : deposit.id,
-            'centre_id':deposit.centre.id,
+            'centre_id':deposit.centre_id,
             'weight':deposit.weight,
             'points':deposit.points
             } for deposit in deposits
-    ]), 200
+        ]), 200
 
     else:
         return jsonify([{'message' : 'user not found'}]), 418
 
 
-@deposits_blueprint.route('/<deposit_id>', methods=['GET'])
+@deposits_blueprint.route('/show/<deposit_id>', methods=['GET'])
 def show(deposit_id):
     deposit = Deposit.get_or_none(Deposit.id == deposit_id)
 
@@ -113,4 +113,4 @@ def show(deposit_id):
             'points':deposit.points
         })
     else:
-        return jsonify({'message' : 'deposit unavailable'})
+        return jsonify({'message' : 'no record for such deposit'})

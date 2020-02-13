@@ -1,6 +1,10 @@
 from flask import Blueprint, render_template, redirect, request, url_for, flash, jsonify, make_response
 from models.store import Coupon
 from datetime import datetime
+import random
+import string
+import re
+
 coupons_blueprint = Blueprint('coupons',
                             __name__,
                             template_folder='templates')
@@ -19,6 +23,7 @@ def show(coupon_id):
             'description' : coupon.description,
             'points' : coupon.cost,
             'expiration' : coupon.expiration,
+            'qr_string': coupon.qr_string
         })
     else:
         return jsonify({'message' : 'coupon not found.'})

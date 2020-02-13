@@ -14,5 +14,6 @@ class Coupon(BaseModel):
     name = pw.CharField()
     value = pw.IntegerField()
     description = pw.CharField()
-    cost = pw.BigIntegerField()
+    cost = pw.IntegerField()
     expiration = pw.DateField()
+    qr_string = pw.CharField(null=True)

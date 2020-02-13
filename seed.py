@@ -29,15 +29,15 @@ store_data = [
 ]
 
 coupon_data = [
-    {'store_id':1,'name':'McRabbit promo','value':25,'description':'delicious rabbit','cost':5000,'expiration':'1/1/2021'},
-    {'store_id':1,'name':'McDaddy buy 2 free 1','value':33,'description':'Happy father\'s day','cost':5000,'expiration':'1/1/2021'},
-    {'store_id':1,'name':'McDooDoo buy 1 free 1','value':50,'description':'doodoo nice','cost':10000,'expiration':'1/1/2021'},
-    {'store_id':2,'name':'Run chicken RUN!','value':20,'description':'catch yo chicken','cost':8000,'expiration':'1/1/2021'},
-    {'store_id':2,'name':'Cheeky nuggets','value':30,'description':'nuggets4life','cost':5000,'expiration':'1/1/2021'},
-    {'store_id':3,'name':'Boba for life','value':15,'description':'Boba for life','cost':5000,'expiration':'1/1/2021'},
-    {'store_id':4,'name':'comfy clothes','value':25,'description':'very comfy clothes','cost':5000,'expiration':'1/1/2021'},
-    {'store_id':4,'name':'comfy pants','value':35,'description':'very comfy pants','cost':10000,'expiration':'1/1/2021'},
-    {'store_id':5,'name':'not so comfy pants','value':75,'description':'very not comfy pants','cost':5000,'expiration':'1/1/2021'}
+    {'store_id':1,'name':'McRabbit promo','value':25,'description':'delicious rabbit','cost':5000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':1,'name':'McDaddy buy 2 free 1','value':33,'description':'Happy father\'s day','cost':5000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':1,'name':'McDooDoo buy 1 free 1','value':50,'description':'doodoo nice','cost':10000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':2,'name':'Run chicken RUN!','value':20,'description':'catch yo chicken','cost':8000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':2,'name':'Cheeky nuggets','value':30,'description':'nuggets4life','cost':5000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':3,'name':'Boba for life','value':15,'description':'Boba for life','cost':5000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':4,'name':'comfy clothes','value':25,'description':'very comfy clothes','cost':5000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':4,'name':'comfy pants','value':35,'description':'very comfy pants','cost':10000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'},
+    {'store_id':5,'name':'not so comfy pants','value':75,'description':'very not comfy pants','cost':5000,'expiration':'1/1/2021','qr_string':'D27J-UWM3-QW45-GA2K'}
     
 ]
 
