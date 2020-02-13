@@ -8,13 +8,13 @@ purchases_blueprint = Blueprint('purchases',
                             template_folder='templates')
 
 
-@purchases_blueprint.route('/', methods=['POST'])
-def create():
+@purchases_blueprint.route('/create/<coupon_id>', methods=['POST'])
+def create(coupon_id):
     buy = request.get_json()
-    coupon = Coupon.get_or_none(Coupon.id == buy['coupon_id'])
+    coupon = Coupon.get_or_none(Coupon.id == coupon_id)
     user = User.get_or_none(User.id == buy['user_id'])
     if coupon and user:
-        if user.points < coupon.cost:
+        if user.points > coupon.cost:
             new_purchase = Purchase(user_id=user.id, coupon_id=coupon.id)
             new_purchase.save()
             User.update(points=user.points - coupon.cost).where(User.id == user.id).execute()
@@ -45,45 +45,80 @@ def create():
 
 @purchases_blueprint.route('/index/<user_id>', methods=['GET'])
 def index(user_id):
-    purchases = Purchase.get_or_none(Purchase.user_id == user_id)
-    print(purchases)
-    breakpoint()
-
-    if purchases:
+    user = User.get_or_none(User.id == user_id)
+    if user:
+        purchases = user.purchases
         return jsonify([{
+            'data' : purchase.created_at,
             'id' : purchase.id,
-            # 'coupon' : {
-            #     'id' : purchase.coupon.id,
-            #     'store_id' : purchase.coupon.store_id
-                # 'name' : purchase.coupon.name,
-                # 'deal' : purchase.coupon.value,
-                # 'description' : purchase.coupon.description,
-                # 'points' : purchase.coupon.cost,
-                # 'expiration' : purchase.coupon.expiration
-                # 'store' : {
-                #     'id' : purchase.coupon.store.id,
-                #     'name' : purchase.coupon.store.name,
-                #     'logo' : purchase.coupon.store.logo
-                # }
-            # },
-            'status' : purchase.status
+            'status' : purchase.status,
+            'coupon' : {
+                'id' : purchase.coupon.id,
+                'name' : purchase.coupon.name,
+                'value' : purchase.coupon.value,
+                'description' : purchase.coupon.description,
+                'cost' : purchase.coupon.cost,
+                'expiration' : purchase.coupon.expiration,
+                'store' : {
+                    'id' : purchase.coupon.store.id,
+                    'name' : purchase.coupon.store.name,
+                    'logo' : purchase.coupon.store.logo
+                }
+            }
         } for purchase in purchases
-    ]), 200
-
+        ]), 200
     else:
         return jsonify({'message' : 'user unavailable'}), 418
 
 
-# @purchases_blueprint.route('/show/<user_id>', methods=['GET'])
-# def show(user_id):
+@purchases_blueprint.route('/show/<purchase_id>', methods=['GET'])
+def show(purchase_id):
+    purchase = Purchase.get_or_none(Purchase.id == purchase_id)
+    if purchase:
+        return jsonify({
+            'date' : purchase.created_at,
+            'id' : purchase.id,
+            'user_id' : purchase.user_id,
+            'coupon_id' : purchase.coupon_id,
+            'status' : purchase.status
+        })
+    else:
+        return jsonify({'message' : 'no record for such purchase'})
 
 
 
+#when user redeems coupon, update status to 'redeemed'
+@purchases_blueprint.route('/update/<purchase_id>',methods=['POST'])
+def update(purchase_id):
+    purchase = Purchase.get_or_none(Purchase.id == purchase_id)
+    get_status = request.get_json()
+    user = get_status['user_id']
+    status = get_status['status']
+    get_user = User.get_or_none(User.id == user)
 
+    # if not redeem , return not active
+    if status != 'redeemed':
+        return jsonify({'message' : 'status must only be \'redeemed\''})
 
-
-# @purchases_blueprint.route('/')
-# def update():
-#     #when user redeems coupon, update status to 'redeemed'
+    if purchase and get_user.id == user:
+        if purchase.status == 'active':
+            Purchase.update(status=status).where(Purchase.id == purchase_id).execute()
+            
+            return jsonify({
+                'message' : 'coupon updated',
+                'id' : purchase.id,
+                'coupon_id' : purchase.coupon_id,
+                'status' : status,
+                'user' : {
+                    'id' : get_user.id,
+                    'username' : get_user.username,
+                    'email' : get_user.email,
+                    'contact' : get_user.contact,
+                }
+            })
+        else:
+            return jsonify({'message' : 'this coupon is not active'})
+    else:
+        return jsonify({'message' : 'no record of such purchase'})
 
 
