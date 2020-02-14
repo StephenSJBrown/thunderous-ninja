@@ -5,7 +5,6 @@ class Store(BaseModel):
     name = pw.CharField(unique=True)
     password = pw.CharField()
     email = pw.CharField(unique=True)
-    profile_image = pw.TextField(default="#")
     logo = pw.TextField(default="#")
     category = pw.CharField()
 
@@ -16,3 +15,4 @@ class Coupon(BaseModel):
     description = pw.CharField()
     cost = pw.IntegerField()
     expiration = pw.DateField()
+    coupon_image = pw.TextField(default="#")
