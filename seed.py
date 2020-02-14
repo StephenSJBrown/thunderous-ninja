@@ -83,9 +83,9 @@ purchase_data = [
 ]
 
 centre_data = [
-    {"name":"IPC recycling centre","location":"Mutiara Damansara,50000 KL"},
-    {"name":"Bandar utama recycling centre","location":"Bandar Utama,45000 KL"},
-    {"name":"Kelana Jaya recycling centre","location":"Kelana Jaya,45000 KL"}
+    {"name":"IPC Recycling & Buy-Back Centre"},
+    {"name":"Tzu Chi Kayu Ara Recycle Center"},
+    {"name":"Tzu Chi Recycling Point"}
 ]
 
 deposit_data = [

@@ -90,7 +90,7 @@ def show(purchase_id):
             'user_id' : purchase.user_id,
             'coupon_id' : purchase.coupon_id,
             'status' : purchase.status
-        })
+        }), 200
     else:
         return jsonify({'message' : 'no record for such purchase'}), 418
 

@@ -19,7 +19,7 @@ def index():
             'email' : user.email
         }
         result.append(user_data)
-    return jsonify({'users' : result})
+    return jsonify({'users' : result}), 200
 
 
 @users_blueprint.route('/<username>', methods=['GET'])
@@ -29,7 +29,7 @@ def show(username):
 
     if user:
         if not current_user == user:
-            return jsonify({'message' : 'unauthorized access'})
+            return jsonify({'message' : 'unauthorized access'}), 418
 
         return jsonify({
             'id' : user.id,
@@ -40,16 +40,16 @@ def show(username):
             'profile_image' : user.profile_image,
             'background_image' : user.background_image
 #image in static/images, but no idea how to link this.
-            })
+            }), 200
     else:
-        return make_response({'message' : 'user not found'})
+        return jsonify({'message' : 'user not found'}), 418
 
 
 @users_blueprint.route('/',methods=['POST'])
 def create():
     user = request.get_json()
     if not user['password'] == user['cfm_pwd']:
-        return jsonify({'message' : 'password confirmation does not match'})
+        return jsonify({'message' : 'password confirmation does not match'}), 418
 
     new_user = User(
         username=user['username'], 
@@ -70,7 +70,7 @@ def create():
         er_msg = []
         for error in new_user.errors:
             er_msg.append(error)
-        return jsonify({'message' : er_msg}), 400
+        return jsonify({'message' : er_msg}), 418
 
 
 @users_blueprint.route('/<user_id>',methods=['PUT'])
@@ -79,7 +79,7 @@ def update(user_id):
     user = User.get_by_id(user_id)
 
     if not current_user == user:
-        return jsonify({'message' : 'unauthorized access'})
+        return jsonify({'message' : 'unauthorized access'}), 418
 
     update = request.get_json()
 
@@ -105,12 +105,12 @@ def update(user_id):
                 'contact' : user.contact,
                 'profile_image' : user.profile_image,
                 },
-            })
+            }), 200
     else:
         er_msg = []
         for error in user.errors:
             er_msg.append(error)
-        return jsonify({'message' : er_msg})
+        return jsonify({'message' : er_msg}), 418
 
 # @users_blueprint.route('/<user_id>/points',methods=['GET'])
 # @login_required
