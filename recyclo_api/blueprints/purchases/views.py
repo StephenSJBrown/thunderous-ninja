@@ -58,7 +58,7 @@ def index(user_id):
     if user:
         purchases = user.purchases
         return jsonify([{
-            'data' : purchase.created_at,
+            'date' : purchase.created_at,
             'id' : purchase.id,
             'status' : purchase.status,
             'coupon' : {
