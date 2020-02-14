@@ -25,14 +25,14 @@ def login():
                     'username' : user.username,
                     'email' : user.email
                     }
-                })
+                }), 200
         else:
             return jsonify({
                 'message' : 'incorrect password',
                 'status' : 'failed'
-                })
+                }), 418
     else:
-        return jsonify({'message' : 'incorrect username and password'})
+        return jsonify({'message' : 'incorrect username and password'}), 418
 
 
 @sessions_blueprint.route('/logout')

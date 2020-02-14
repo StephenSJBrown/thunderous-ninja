@@ -40,12 +40,12 @@ def create(centre_id):
                     'name' : centre.name,
                     'location' : centre.location
                 }
-                })
+                }), 200
 
         else:
-            return jsonify({'message' : 'user not found'})
+            return jsonify({'message' : 'user not found'}), 418
     else:
-        return jsonify({'message' : 'centre not found'})
+        return jsonify({'message' : 'centre not found'}), 418
 
 
 #gets weight from rashberryPi and updates the latest entry of the centre.
@@ -75,9 +75,9 @@ def update(centre_id):
                 'contact' : user.contact,
                 'points_total' : user.points
             }
-            })
+            }), 200
     else:
-        return jsonify({'message' : 'can\'t record weight, this user already recorded a weight.'})
+        return jsonify({'message' : 'can\'t record weight, this user already recorded a weight.'}), 418
 
 
 #shows all deposits based on user
@@ -113,6 +113,6 @@ def show(deposit_id):
             'centre_id':deposit.centre_id,
             'weight': deposit.weight,
             'points':deposit.points
-        })
+        }), 200
     else:
-        return jsonify({'message' : 'no record for such deposit'})
+        return jsonify({'message' : 'no record for such deposit'}), 418

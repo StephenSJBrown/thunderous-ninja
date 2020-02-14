@@ -16,7 +16,6 @@ def index(category):
                 'id' : store.id,
                 'name' : store.name,
                 'email' : store.email,
-                'profile-image' : store.profile_image,
                 'logo' : store.logo,
                 'category' : store.category,
                 'coupons' : [
@@ -29,9 +28,9 @@ def index(category):
                 ]
             }
             result.append(store_data)
-        return jsonify({'stores' : result})
+        return jsonify({'stores' : result}), 200
     else:
-        return jsonify({'message' : 'category not found'})
+        return jsonify({'message' : 'category not found'}), 418
 
 @stores_blueprint.route('/store/<store_name>',methods=['GET'])
 def show(store_name):
