@@ -22,15 +22,12 @@ def index():
     return jsonify({'users' : result}), 200
 
 
-@users_blueprint.route('/<username>', methods=['GET'])
-@login_required
-def show(username):
-    user = User.get_or_none(User.username == username)
+@users_blueprint.route('/<id>', methods=['GET'])
+def show(id):
+    user = User.get_or_none(User.id == id)
+    print(user)
 
     if user:
-        if not current_user == user:
-            return jsonify({'message' : 'unauthorized access'}), 418
-
         return jsonify({
             'id' : user.id,
             'username' : user.username,
