@@ -85,7 +85,12 @@ purchase_data = [
 centre_data = [
     {"name":"IPC Recycling & Buy-Back Centre","place_id":"ChIJ6eTsxytPzDERW07hq6W8cBA"},
     {"name":"Tzu Chi Kayu Ara Recycle Center","place_id":"ChIJddVFuspOzDERNJ8jbM4Dunk"},
-    {"name":"Tzu Chi Recycling Point","place_id":"ChIJa3VfKVFJzDER1oZDn3umsgk"}
+    {"name":"Tzu Chi Recycling Point","place_id":"ChIJa3VfKVFJzDER1oZDn3umsgk"},
+    {"name":"Nithia Sree Enterprise","place_id":"ChIJLXrSQLJOzDERyOMgx3S0VFo"},
+    {"name":"Tzu Chi Recycling Point","place_id":"ChIJa3VfKVFJzDER1oZDn3umsgk"},
+    {"name":"Sri Akarshna Trading","place_id":"ChIJZ489nNxPzDER7Z9Yz-VzHuQ"},
+    {"name":"PJ Fibre Recovery Sdn Bhd","place_id":"ChIJU6o3VrxLzDERjh4T3wwpxls"},
+    {"name":"Nikkhsin Agro (Me) Sdn. Bhd.","place_id":"ChIJIXg1cpZLzDERK10zBo7smrQ"}
 ]
 
 deposit_data = [

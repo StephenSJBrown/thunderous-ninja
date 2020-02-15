@@ -12,9 +12,8 @@ centres_blueprint = Blueprint('centres',
 def index():
     # breakpoint()
     # current_location = {"lat":3.134873,"lng":101.6299415}
-    current_location = request.get_json().get('lat') and 
-    request.get_json().get('lng')
-
+    # current_location = request.get_json().get('lat') and request.get_json().get('lng')
+    current_location = request.get_json()
     if not current_location:
         return jsonify({'message' : 'please parse "lat" & "lng" coordinates'}), 418
 
@@ -23,7 +22,6 @@ def index():
     for centre in centres:
         get_distance = requests.get(f'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins={current_location["lat"]},{current_location["lng"]}&destinations=place_id:{centre.place_id}&key={os.environ.get("GOOGLE_MAP_API")}')
 
-        # x = get_distance.json().get('rows').get('elements')
         x = get_distance.json()['rows'][0]['elements'][0]
         obj = {
             'name':centre.name,
@@ -32,11 +30,14 @@ def index():
         }
         distance_list.append(obj)
 
+    sorted_list = sorted(distance_list, key = lambda i: (['distance'))
+
     return jsonify({
-            'centres' : distance_list
+            'centres' : sorted_list
     }), 200
 
-    
+
+
 
 
 
