@@ -83,9 +83,9 @@ purchase_data = [
 ]
 
 centre_data = [
-    {"name":"IPC Recycling & Buy-Back Centre"},
-    {"name":"Tzu Chi Kayu Ara Recycle Center"},
-    {"name":"Tzu Chi Recycling Point"}
+    {"name":"IPC Recycling & Buy-Back Centre","place_id":"ChIJ6eTsxytPzDERW07hq6W8cBA"},
+    {"name":"Tzu Chi Kayu Ara Recycle Center","place_id":"ChIJddVFuspOzDERNJ8jbM4Dunk"},
+    {"name":"Tzu Chi Recycling Point","place_id":"ChIJa3VfKVFJzDER1oZDn3umsgk"}
 ]
 
 deposit_data = [
