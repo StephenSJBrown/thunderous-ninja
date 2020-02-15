@@ -49,6 +49,7 @@ def show(store_name):
                 'description' : coupon.description,
                 'points' : coupon.cost,
                 'expiration' : coupon.expiration,
+                'coupon_image' : coupon.coupon_image
                 #npm install momentjs/use moment().format(MM .....) at React, to pull specific date format.
             }
             result.append(coupon_data)
