@@ -22,10 +22,9 @@ def index():
     return jsonify({'users' : result}), 200
 
 
-@users_blueprint.route('/<id>', methods=['GET'])
-def show(id):
+@users_blueprint.route('/id', methods=['GET'])
+def show(username):
     user = User.get_or_none(User.id == id)
-    print(user)
 
     if user:
         return jsonify({
