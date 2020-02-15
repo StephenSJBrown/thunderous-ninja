@@ -22,15 +22,18 @@ def index():
     for centre in centres:
         get_distance = requests.get(f'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins={current_location["lat"]},{current_location["lng"]}&destinations=place_id:{centre.place_id}&key={os.environ.get("GOOGLE_MAP_API")}')
 
-        x = get_distance.json()['rows'][0]['elements'][0]
+        centre_distance = get_distance.json()['rows'][0]['elements'][0]
+        distance = centre_distance['distance']['text']
+        floatify = float(distance.split(' ')[0])
+        print(floatify)
         obj = {
             'name':centre.name,
-            'distance': x['distance']['text'],
+            'distance': floatify,
             'place_id' : centre.place_id
         }
         distance_list.append(obj)
 
-    sorted_list = sorted(distance_list, key = lambda i: (['distance'))
+    sorted_list = sorted(distance_list, key = lambda i: i['distance'])
 
     return jsonify({
             'centres' : sorted_list
