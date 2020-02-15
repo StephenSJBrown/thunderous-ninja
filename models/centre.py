@@ -6,12 +6,3 @@ class Centre(BaseModel):
     name = pw.CharField(unique=True)
     place_id = pw.CharField(null=True)
     # location = pw.CharField()
-
-    def validate(self):
-        duplicate_name = Centre.get_or_none(Centre.name == self.name)
-
-        if self.id == None:
-            if duplicate_name:
-                self.errors.append(f'{self.username} is unvailable!')
-
-        
