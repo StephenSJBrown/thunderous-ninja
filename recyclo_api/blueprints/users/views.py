@@ -22,8 +22,8 @@ def index():
     return jsonify({'users' : result}), 200
 
 
-@users_blueprint.route('/id', methods=['GET'])
-def show(username):
+@users_blueprint.route('/<id>', methods=['GET'])
+def show(id):
     user = User.get_or_none(User.id == id)
 
     if user:
@@ -69,13 +69,9 @@ def create():
         return jsonify({'message' : er_msg}), 418
 
 
-@users_blueprint.route('/<user_id>',methods=['PUT'])
-@login_required
+@users_blueprint.route('/<user_id>',methods=['POST'])
 def update(user_id):
     user = User.get_by_id(user_id)
-
-    if not current_user == user:
-        return jsonify({'message' : 'unauthorized access'}), 418
 
     update = request.get_json()
 
