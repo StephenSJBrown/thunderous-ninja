@@ -22,7 +22,8 @@ def show(coupon_id):
             'deal' : coupon.value,
             'description' : coupon.description,
             'points' : coupon.cost,
-            'expiration' : coupon.expiration
+            'expiration' : coupon.expiration,
+            'coupon_image' : coupon.coupon_image
         }), 200
     else:
         return jsonify({'message' : 'coupon not found.'}), 418
