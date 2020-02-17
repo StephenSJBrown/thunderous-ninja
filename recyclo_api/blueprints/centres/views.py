@@ -22,7 +22,6 @@ def index():
     distance_list = []
     for centre in centres:
         get_distance = requests.get(f'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins={current_location["lat"]},{current_location["lng"]}&destinations=place_id:{centre.place_id}&key={os.environ.get("GOOGLE_MAP_API")}')
-        # breakpoint()
         centre_distance = get_distance.json()['rows'][0]['elements'][0]
         distance = centre_distance['distance']['text']
         floatify = float(distance.split(' ')[0])
