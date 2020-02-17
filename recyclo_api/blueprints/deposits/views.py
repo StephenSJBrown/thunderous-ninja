@@ -38,7 +38,7 @@ def create(centre_id):
                 'centre' : {
                     'id' : centre.id,
                     'name' : centre.name,
-                    'location' : centre.location
+                    'place_id' : centre.place_id
                 }
                 }), 200
 
