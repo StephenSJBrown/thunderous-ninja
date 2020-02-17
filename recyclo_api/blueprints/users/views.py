@@ -39,6 +39,7 @@ def show(id):
             'points' : user.points,
             'profile_image' : user.profile_image,
             'background_image' : user.background_image
+
 #image in static/images, but no idea how to link this.
             }), 200
     else:
@@ -63,11 +64,7 @@ def create():
             'new_user' : {
                 'id' : new_user.id,
                 'username' : new_user.username,
-                'email' : new_user.email,
-                'contact' : user.contact,
-                'points' : user.points,
-                'profile_image' : user.profile_image,
-                'background_image' : user.background_image
+                'email' : new_user.email
                 },
             }), 200
     else:
