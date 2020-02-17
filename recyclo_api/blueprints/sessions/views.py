@@ -23,7 +23,10 @@ def login():
                 'user' : {
                     'id' : user.id,
                     'username' : user.username,
-                    'email' : user.email
+                    'email' : user.email,
+                    'points' : user.points,
+                    'profile_image' : user.profile_image,
+                    'background_image' : user.background_image
                     }
                 }), 200
         else:

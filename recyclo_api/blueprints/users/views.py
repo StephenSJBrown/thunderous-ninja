@@ -16,7 +16,11 @@ def index():
         user_data = {
             'id' : user.id,
             'username' : user.username,
-            'email' : user.email
+            'email' : user.email,
+            'contact' : user.contact,
+            'points' : user.points,
+            'profile_image' : user.profile_image,
+            'background_image' : user.background_image
         }
         result.append(user_data)
     return jsonify({'users' : result}), 200
@@ -59,7 +63,11 @@ def create():
             'new_user' : {
                 'id' : new_user.id,
                 'username' : new_user.username,
-                'email' : new_user.email
+                'email' : new_user.email,
+                'contact' : user.contact,
+                'points' : user.points,
+                'profile_image' : user.profile_image,
+                'background_image' : user.background_image
                 },
             }), 200
     else:
