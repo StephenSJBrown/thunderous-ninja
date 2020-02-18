@@ -61,6 +61,7 @@ def index(user_id):
             'date' : purchase.created_at,
             'id' : purchase.id,
             'status' : purchase.status,
+            'qr_string' :purchase.qr_string,
             'coupon' : {
                 'id' : purchase.coupon.id,
                 'name' : purchase.coupon.name,
@@ -89,7 +90,8 @@ def show(purchase_id):
             'id' : purchase.id,
             'user_id' : purchase.user_id,
             'coupon_id' : purchase.coupon_id,
-            'status' : purchase.status
+            'status' : purchase.status,
+            'qr_string' : purchase.qr_string
         }), 200
     else:
         return jsonify({'message' : 'no record for such purchase'}), 418
